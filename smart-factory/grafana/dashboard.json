@@ -1,0 +1,136 @@
+{
+  "title": "Smart-Factory Telemetry Dashboard",
+  "panels": [
+    {
+      "type": "gauge",
+      "title": "Analog Channel 1 (Voltage)",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, analog_ch1 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp ASC",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 5,
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "orange", "value": 3 },
+              { "color": "red", "value": 4.5 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "gauge",
+      "title": "Analog Channel 2 (Voltage)",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, analog_ch2 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp ASC",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 5
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Digital Channel 1 (Motor)",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, digital_ch1 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "green", "value": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Digital Channel 2 (Pump)",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, digital_ch2 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "grey", "value": null },
+              { "color": "blue", "value": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Digital Channel 3 (Alarm)",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, digital_ch3 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Digital Channel 4",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, digital_ch4 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
+          "format": "time_series"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Digital Channel 5 (Error State)",
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp AS time, digital_ch5 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
+          "format": "time_series"
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  }
+}
