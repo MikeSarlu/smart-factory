@@ -9,7 +9,7 @@
         },
         "enable": true,
         "hide": true,
-        "name": "Annotations & Alerts",
+        "name": "Anotaciones y Alertas",
         "type": "dashboard"
       }
     ]
@@ -23,7 +23,7 @@
   "panels": [
     {
       "id": 1,
-      "title": "Analog Channel 1 (Voltage)",
+      "title": "Canal Analógico 1 (Voltaje)",
       "type": "gauge",
       "datasource": {
         "type": "postgres",
@@ -70,7 +70,7 @@
     },
     {
       "id": 2,
-      "title": "Analog Channel 2 (Voltage)",
+      "title": "Canal Analógico 2 (Voltaje)",
       "type": "gauge",
       "datasource": {
         "type": "postgres",
@@ -117,7 +117,7 @@
     },
     {
       "id": 3,
-      "title": "Digital Channel 1 (Motor)",
+      "title": "Canal Digital 1 (Motor)",
       "type": "stat",
       "datasource": {
         "type": "postgres",
@@ -142,8 +142,8 @@
             {
               "type": "value",
               "options": {
-                "0": { "text": "OFF", "color": "red" },
-                "1": { "text": "ON", "color": "green" }
+                "0": { "text": "APAGADO", "color": "red" },
+                "1": { "text": "ENCENDIDO", "color": "green" }
               }
             }
           ]
@@ -162,7 +162,7 @@
     },
     {
       "id": 4,
-      "title": "Digital Channel 2 (Pump)",
+      "title": "Canal Digital 2 (Bomba)",
       "type": "stat",
       "datasource": {
         "type": "postgres",
@@ -187,8 +187,8 @@
             {
               "type": "value",
               "options": {
-                "0": { "text": "OFF", "color": "grey" },
-                "1": { "text": "RUNNING", "color": "blue" }
+                "0": { "text": "APAGADO", "color": "grey" },
+                "1": { "text": "EN MARCHA", "color": "blue" }
               }
             }
           ]
@@ -207,7 +207,7 @@
     },
     {
       "id": 5,
-      "title": "Digital Channel 3 (Alarm)",
+      "title": "Canal Digital 3 (Alarma)",
       "type": "stat",
       "datasource": {
         "type": "postgres",
@@ -232,8 +232,8 @@
             {
               "type": "value",
               "options": {
-                "0": { "text": "OK", "color": "green" },
-                "1": { "text": "ALARM", "color": "red" }
+                "0": { "text": "NORMAL", "color": "green" },
+                "1": { "text": "ALARMA", "color": "red" }
               }
             }
           ]
@@ -252,7 +252,7 @@
     },
     {
       "id": 6,
-      "title": "Digital Channel 4",
+      "title": "Canal Digital 4 (Reserva)",
       "type": "stat",
       "datasource": {
         "type": "postgres",
@@ -277,8 +277,8 @@
             {
               "type": "value",
               "options": {
-                "0": { "text": "STANDBY", "color": "grey" },
-                "1": { "text": "ACTIVE", "color": "green" }
+                "0": { "text": "RESERVA", "color": "grey" },
+                "1": { "text": "ACTIVO", "color": "green" }
               }
             }
           ]
@@ -297,7 +297,7 @@
     },
     {
       "id": 7,
-      "title": "Digital Channel 5 (Error State)",
+      "title": "Canal Digital 5 (Estado de Error)",
       "type": "stat",
       "datasource": {
         "type": "postgres",
@@ -362,8 +362,8 @@
     ]
   },
   "timezone": "",
-  "title": "Smart-Factory Telemetry Dashboard",
+  "title": "Panel de Telemetría de Smart-Factory",
   "uid": "smart_factory_telemetry",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
