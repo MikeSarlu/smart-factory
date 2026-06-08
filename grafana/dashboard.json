@@ -1,136 +1,369 @@
 {
-  "title": "Smart-Factory Telemetry Dashboard",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
   "panels": [
     {
-      "type": "gauge",
+      "id": 1,
       "title": "Analog Channel 1 (Voltage)",
+      "type": "gauge",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
       "targets": [
         {
-          "rawSql": "SELECT timestamp AS time, analog_ch1 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp ASC",
-          "format": "time_series"
+          "rawSql": "SELECT analog_ch1 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
           "min": 0,
           "max": 5,
+          "unit": "volt",
           "color": { "mode": "thresholds" },
           "thresholds": {
             "mode": "absolute",
             "steps": [
               { "color": "green", "value": null },
-              { "color": "orange", "value": 3 },
+              { "color": "orange", "value": 3.5 },
               { "color": "red", "value": 4.5 }
             ]
           }
         }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
       }
     },
     {
-      "type": "gauge",
+      "id": 2,
       "title": "Analog Channel 2 (Voltage)",
+      "type": "gauge",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
       "targets": [
         {
-          "rawSql": "SELECT timestamp AS time, analog_ch2 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp ASC",
-          "format": "time_series"
+          "rawSql": "SELECT analog_ch2 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "max": 5
-        }
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Digital Channel 1 (Motor)",
-      "targets": [
-        {
-          "rawSql": "SELECT timestamp AS time, digital_ch1 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
-          "format": "time_series"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "red", "value": null },
-              { "color": "green", "value": 1 }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Digital Channel 2 (Pump)",
-      "targets": [
-        {
-          "rawSql": "SELECT timestamp AS time, digital_ch2 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
-          "format": "time_series"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "grey", "value": null },
-              { "color": "blue", "value": 1 }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Digital Channel 3 (Alarm)",
-      "targets": [
-        {
-          "rawSql": "SELECT timestamp AS time, digital_ch3 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
-          "format": "time_series"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
+          "max": 5,
+          "unit": "volt",
           "color": { "mode": "thresholds" },
           "thresholds": {
             "mode": "absolute",
             "steps": [
               { "color": "green", "value": null },
-              { "color": "red", "value": 1 }
+              { "color": "orange", "value": 3.5 },
+              { "color": "red", "value": 4.5 }
             ]
           }
         }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
       }
     },
     {
+      "id": 3,
+      "title": "Digital Channel 1 (Motor)",
       "type": "stat",
-      "title": "Digital Channel 4",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 8
+      },
       "targets": [
         {
-          "rawSql": "SELECT timestamp AS time, digital_ch4 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
-          "format": "time_series"
+          "rawSql": "SELECT digital_ch1 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
         }
-      ]
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "OFF", "color": "red" },
+                "1": { "text": "ON", "color": "green" }
+              }
+            }
+          ]
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none"
+      }
     },
     {
+      "id": 4,
+      "title": "Digital Channel 2 (Pump)",
       "type": "stat",
-      "title": "Digital Channel 5 (Error State)",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 4,
+        "y": 8
+      },
       "targets": [
         {
-          "rawSql": "SELECT timestamp AS time, digital_ch5 AS metric FROM telemetry_data WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1",
-          "format": "time_series"
+          "rawSql": "SELECT digital_ch2 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
         }
-      ]
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "OFF", "color": "grey" },
+                "1": { "text": "RUNNING", "color": "blue" }
+              }
+            }
+          ]
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Digital Channel 3 (Alarm)",
+      "type": "stat",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 9,
+        "y": 8
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT digital_ch3 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "OK", "color": "green" },
+                "1": { "text": "ALARM", "color": "red" }
+              }
+            }
+          ]
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Digital Channel 4",
+      "type": "stat",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 14,
+        "y": 8
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT digital_ch4 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "STANDBY", "color": "grey" },
+                "1": { "text": "ACTIVE", "color": "green" }
+              }
+            }
+          ]
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Digital Channel 5 (Error State)",
+      "type": "stat",
+      "datasource": {
+        "type": "postgres",
+        "uid": "postgres-smartfactory"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 8
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT digital_ch5 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "NORMAL", "color": "green" },
+                "1": { "text": "ERROR", "color": "red" }
+              }
+            }
+          ]
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        },
+        "orientation": "auto",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none"
+      }
     }
   ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
-  }
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m"
+    ]
+  },
+  "timezone": "",
+  "title": "Smart-Factory Telemetry Dashboard",
+  "uid": "smart_factory_telemetry",
+  "version": 2,
+  "weekStart": ""
 }

@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: db:5432
+    database: smartfactory
+    user: postgres
+    uid: postgres-smartfactory
+    secureJsonData:
+      password: secretpassword
+    jsonData:
+      sslmode: 'disable'
+      postgresVersion: 15

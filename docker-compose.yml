@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: smart-factory-db
+    environment:
+      POSTGRES_DB: smartfactory
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d smartfactory"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  receiver:
+    build:
+      context: .
+      dockerfile: receiver/Dockerfile
+    container_name: smart-factory-receiver
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: smartfactory
+      DB_USER: postgres
+      DB_PASSWORD: secretpassword
+    depends_on:
+      db:
+        condition: service_healthy
+
+  simulator:
+    build:
+      context: ./simulator
+      dockerfile: Dockerfile
+    container_name: smart-factory-simulator
+    environment:
+      API_GATEWAY_URL: http://receiver:8080/telemetry
+    depends_on:
+      receiver:
+        condition: service_started
+
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: smart-factory-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

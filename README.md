@@ -22,12 +22,17 @@ Copia el archivo `.env.example` a `.env` y configura tus variables locales (no s
 cp .env.example .env
 ```
 
-### 3. Ejecutar el Simulador
-Desde la terminal de WSL, navega al directorio del simulador y ejecuta:
+### 3. Ejecutar el Entorno Completo Local (Docker Compose)
+Para levantar todo el ecosistema (PostgreSQL, Receptor Mock de Lambda, Simulador de Telemetría y Grafana auto-configurado):
 
+Desde la terminal (PowerShell o WSL), ejecuta:
 ```bash
-cd simulator
-docker build -t smart-factory-simulator .
-docker run --env-file ../.env smart-factory-simulator
+docker compose up --build
 ```
-La variable de entorno `PYTHONUNBUFFERED=1` en el contenedor garantiza que los logs de telemetría se impriman inmediatamente sin buffering.
+
+Esto levantará los siguientes servicios de manera automática:
+* **PostgreSQL** (`localhost:5432`): Inicializado con la estructura de tablas de `init.sql`.
+* **Mock Receiver** (`localhost:8080`): Expone la ruta `/telemetry` que recibe datos y ejecuta la lógica de `aws/lambda_function.py` localmente.
+* **Simulator**: Empieza a generar la telemetría e hilos de datos y los envía al receptor.
+* **Grafana** (`localhost:3000`): Inicia con el DataSource de PostgreSQL pre-configurado y el dashboard precargado de forma automática (credenciales por defecto: `admin/admin`).
+
