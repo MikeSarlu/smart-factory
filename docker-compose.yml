@@ -40,7 +40,8 @@ services:
       dockerfile: Dockerfile
     container_name: smart-factory-simulator
     environment:
-      API_GATEWAY_URL: http://receiver:8080/telemetry
+      API_GATEWAY_URL: ${API_GATEWAY_URL:-http://receiver:8080/telemetry}
+      CONTROL_URL: ${CONTROL_URL:-http://receiver:8080/control}
     depends_on:
       receiver:
         condition: service_started
@@ -50,6 +51,9 @@ services:
     container_name: smart-factory-grafana
     ports:
       - "3000:3000"
+    environment:
+      # Plugin de formularios: permite añadir switches y botones interactivos al dashboard
+      GF_INSTALL_PLUGINS: "volkovlabs-form-panel 3.2.1"
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards

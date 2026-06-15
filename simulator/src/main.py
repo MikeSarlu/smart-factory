@@ -10,8 +10,13 @@ import threading
 
 #Configuración del endpoint al que se enviará la telemetría
 API_GATEWAY_URL = os.getenv("API_GATEWAY_URL", "http://localhost:8080/telemetry")
+CONTROL_URL = os.getenv("CONTROL_URL", "http://receiver:8080/control")
 #Identificador único del dispositivo
 DEVICE_ID = "sensor_block_01"
+
+# Estado interno de los LEDs en este "hardware" simulado
+hardware_led_state = {"led1": 0, "led2": 0}
+hardware_led_lock = threading.Lock()
 
 def generate_telemetry():
     """Genera datos de telemetría simulados para el dispositivo."""
@@ -86,12 +91,60 @@ def telemetry_loop():
         #Espera de 2 segundos antes de generar la siguiente lectura de telemetría
         time.sleep(2)
 
+def hardware_control_loop():
+    """
+    Hilo de control de hardware: cada 3 segundos consulta el endpoint /control
+    para detectar si alguien prendió o apagó un LED desde el dashboard de Grafana.
+    Al detectar un cambio, simula la reacción del hardware imprimiendo en consola.
+    """
+    global hardware_led_state
+    print(f"[HARDWARE] Iniciando hilo de escucha de comandos de control...")
+    
+    while True:
+        try:
+            # Consultar el estado más reciente de cada LED en el backend
+            for led_id in ['led1', 'led2']:
+                if "execute-api" in CONTROL_URL:
+                    # AWS API Gateway utiliza GET /control?led_id=led1
+                    check_url = f"{CONTROL_URL}?led_id={led_id}"
+                else:
+                    # Receptor Flask local utiliza GET /control/status/led1
+                    check_url = CONTROL_URL.replace('/control', f'/control/status/{led_id}')
+                resp = requests.get(check_url, timeout=3)
+                
+                if resp.status_code == 200:
+                    data = resp.json()
+                    new_state = data.get('state', 0)
+                    
+                    with hardware_led_lock:
+                        old_state = hardware_led_state[led_id]
+                        
+                        # Solo actuar si hay un cambio de estado
+                        if new_state != old_state:
+                            hardware_led_state[led_id] = new_state
+                            accion = "ENCENDIDO 💡" if new_state == 1 else "APAGADO  🔴"
+                            print(f"\n{'='*50}")
+                            print(f"  >>> ACCIÓN DE HARDWARE: {led_id.upper()} -> {accion}")
+                            print(f"  >>> Simulando control de pin GPIO...")
+                            print(f"{'='*50}\n")
+        except requests.exceptions.ConnectionError:
+            # El receiver aún no está listo, esperar en silencio
+            pass
+        except Exception as e:
+            print(f"[HARDWARE] Error al verificar comandos: {e}")
+            
+        time.sleep(3)
+
 #Punto de entrada de la aplicación
 if __name__ == "__main__":
     #Se inicia el bucle de la simulación en un hilo secundario
     #para permitir que el hilo principal maneje interrupciones sin bloquearse
     simulator_thread = threading.Thread(target=telemetry_loop, daemon=True)
     simulator_thread.start()
+    
+    # Iniciar el hilo de control de hardware (escucha comandos de Grafana)
+    hardware_thread = threading.Thread(target=hardware_control_loop, daemon=True)
+    hardware_thread.start()
     
     #Bucle de espera del hilo principal para mantener la aplicación en ejecución
     try:
@@ -100,4 +153,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         #Finaliza el proceso
         print("Simulador detenido...")
-

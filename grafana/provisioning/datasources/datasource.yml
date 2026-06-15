@@ -4,12 +4,12 @@ datasources:
   - name: PostgreSQL
     type: postgres
     access: proxy
-    url: db:5432
-    database: smartfactory
+    url: smart-factory-db.cjwquuemwozd.us-east-2.rds.amazonaws.com:5432
+    database: postgres
     user: postgres
     uid: postgres-smartfactory
     secureJsonData:
-      password: secretpassword
+      password: 93jJmLkpW8Fa49G
     jsonData:
-      sslmode: 'disable'
+      sslmode: 'require'
       postgresVersion: 15

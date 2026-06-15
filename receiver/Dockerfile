@@ -4,12 +4,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Copy requirements from receiver folder
-COPY receiver/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY receiver/requirements.txt ./receiver/requirements.txt
+RUN pip install --no-cache-dir -r receiver/requirements.txt
 
-# Copy receiver and lambda sources
-COPY receiver/src/ ./src/
+COPY receiver/src/ ./receiver/src/
 COPY aws/ ./aws/
 
-CMD ["python", "src/app.py"]
+CMD ["python", "receiver/src/app.py"]

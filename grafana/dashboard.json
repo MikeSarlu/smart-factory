@@ -17,17 +17,43 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 18,
   "links": [],
   "liveNow": true,
   "panels": [
     {
-      "id": 1,
-      "title": "Canal Analógico 1 (Voltaje)",
-      "type": "gauge",
       "datasource": {
         "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "uid": "default"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 5,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 3.5
+              },
+              {
+                "color": "red",
+                "value": 4.5
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -35,46 +61,63 @@
         "x": 0,
         "y": 0
       },
+      "id": 1,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT analog_ch1 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT analog_ch1 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
+      "title": "Canal Analógico 1 (Voltaje)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
       "fieldConfig": {
         "defaults": {
-          "min": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
           "max": 5,
-          "unit": "volt",
-          "color": { "mode": "thresholds" },
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "orange", "value": 3.5 },
-              { "color": "red", "value": 4.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 3.5
+              },
+              {
+                "color": "red",
+                "value": 4.5
+              }
             ]
-          }
-        }
-      },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
+          },
+          "unit": "volt"
         },
-        "orientation": "auto",
-        "showThresholdLabels": true,
-        "showThresholdMarkers": true
-      }
-    },
-    {
-      "id": 2,
-      "title": "Canal Analógico 2 (Voltaje)",
-      "type": "gauge",
-      "datasource": {
-        "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -82,46 +125,67 @@
         "x": 12,
         "y": 0
       },
+      "id": 2,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT analog_ch2 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT analog_ch2 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
+      "title": "Canal Analógico 2 (Voltaje)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
       "fieldConfig": {
         "defaults": {
-          "min": 0,
-          "max": 5,
-          "unit": "volt",
-          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "text": "APAGADO"
+                },
+                "1": {
+                  "color": "green",
+                  "text": "ENCENDIDO"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "orange", "value": 3.5 },
-              { "color": "red", "value": 4.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
             ]
           }
-        }
-      },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
         },
-        "orientation": "auto",
-        "showThresholdLabels": true,
-        "showThresholdMarkers": true
-      }
-    },
-    {
-      "id": 3,
-      "title": "Canal Digital 1 (Motor)",
-      "type": "stat",
-      "datasource": {
-        "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -129,44 +193,69 @@
         "x": 0,
         "y": 8
       },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT digital_ch1 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT digital_ch1 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
+      "title": "Canal Digital 1 (Motor)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [
             {
-              "type": "value",
               "options": {
-                "0": { "text": "APAGADO", "color": "red" },
-                "1": { "text": "ENCENDIDO", "color": "green" }
-              }
+                "0": {
+                  "color": "grey",
+                  "text": "APAGADO"
+                },
+                "1": {
+                  "color": "blue",
+                  "text": "EN MARCHA"
+                }
+              },
+              "type": "value"
             }
-          ]
-        }
-      },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
-        "orientation": "auto",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "graphMode": "none"
-      }
-    },
-    {
-      "id": 4,
-      "title": "Canal Digital 2 (Bomba)",
-      "type": "stat",
-      "datasource": {
-        "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -174,44 +263,69 @@
         "x": 4,
         "y": 8
       },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT digital_ch2 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT digital_ch2 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
+      "title": "Canal Digital 2 (Bomba)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [
             {
-              "type": "value",
               "options": {
-                "0": { "text": "APAGADO", "color": "grey" },
-                "1": { "text": "EN MARCHA", "color": "blue" }
-              }
+                "0": {
+                  "color": "green",
+                  "text": "NORMAL"
+                },
+                "1": {
+                  "color": "red",
+                  "text": "ALARMA"
+                }
+              },
+              "type": "value"
             }
-          ]
-        }
-      },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
-        "orientation": "auto",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "graphMode": "none"
-      }
-    },
-    {
-      "id": 5,
-      "title": "Canal Digital 3 (Alarma)",
-      "type": "stat",
-      "datasource": {
-        "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -219,44 +333,69 @@
         "x": 9,
         "y": 8
       },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT digital_ch3 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT digital_ch3 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
+      "title": "Canal Digital 3 (Alarma)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [
             {
-              "type": "value",
               "options": {
-                "0": { "text": "NORMAL", "color": "green" },
-                "1": { "text": "ALARMA", "color": "red" }
-              }
+                "0": {
+                  "color": "grey",
+                  "text": "RESERVA"
+                },
+                "1": {
+                  "color": "green",
+                  "text": "ACTIVO"
+                }
+              },
+              "type": "value"
             }
-          ]
-        }
-      },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
-        "orientation": "auto",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "graphMode": "none"
-      }
-    },
-    {
-      "id": 6,
-      "title": "Canal Digital 4 (Reserva)",
-      "type": "stat",
-      "datasource": {
-        "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -264,44 +403,69 @@
         "x": 14,
         "y": 8
       },
+      "id": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT digital_ch4 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT digital_ch4 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
+      "title": "Canal Digital 4 (Reserva)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [
             {
-              "type": "value",
               "options": {
-                "0": { "text": "RESERVA", "color": "grey" },
-                "1": { "text": "ACTIVO", "color": "green" }
-              }
+                "0": {
+                  "color": "green",
+                  "text": "NORMAL"
+                },
+                "1": {
+                  "color": "red",
+                  "text": "ERROR"
+                }
+              },
+              "type": "value"
             }
-          ]
-        }
-      },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
-        "orientation": "auto",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "graphMode": "none"
-      }
-    },
-    {
-      "id": 7,
-      "title": "Canal Digital 5 (Estado de Error)",
-      "type": "stat",
-      "datasource": {
-        "type": "postgres",
-        "uid": "postgres-smartfactory"
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -309,36 +473,138 @@
         "x": 19,
         "y": 8
       },
+      "id": 7,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "10.1.0",
       "targets": [
         {
-          "rawSql": "SELECT digital_ch5 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "format": "table",
+          "rawSql": "SELECT digital_ch5 AS \"value\" FROM telemetry_data ORDER BY timestamp DESC LIMIT 1",
           "refId": "A"
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "type": "value",
-              "options": {
-                "0": { "text": "NORMAL", "color": "green" },
-                "1": { "text": "ERROR", "color": "red" }
-              }
-            }
-          ]
+      "title": "Canal Digital 5 (Estado de Error)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "default"
+      },
+      "description": "Usa los switches para encender o apagar los LEDs en el hardware. El simulador detectará el cambio en tiempo real.",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 8,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "css": "button[title*='Save'], button[title*='Reset'], button[aria-label*='Save'], button[aria-label*='Reset'] { display: none !important; }",
+        "elements": [
+          {
+            "id": "led1",
+            "title": "LED 1 — Luz de Operación",
+            "type": "boolean",
+            "uid": "led1_switch",
+            "width": 12
+          },
+          {
+            "id": "led2",
+            "title": "LED 2 — Luz de Advertencia",
+            "type": "boolean",
+            "uid": "led2_switch",
+            "width": 12
+          }
+        ],
+        "initial": {
+          "code": "return {};",
+          "contentType": "application/json",
+          "getPayload": "return {};",
+          "highlight": false,
+          "highlightColor": "red",
+          "method": "-"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 10,
+          "variant": "single"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "resetAction": {
+          "code": "console.log('resetAction running');",
+          "mode": "initial"
+        },
+        "resetButton": {
+          "icon": "",
+          "text": "",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "saveDefaultButton": {
+          "icon": "",
+          "text": "",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "cloud-upload",
+          "text": "Submit",
+          "variant": "primary"
+        },
+        "submitButton": {
+          "icon": "send",
+          "text": "Enviar Comandos al Hardware",
+          "variant": "primary"
+        },
+        "sync": true,
+        "update": {
+          "code": "(async () => {\n  try {\n    const getUrl = () => { if (typeof replaceVariables === 'function') return replaceVariables('${control_url}'); if (typeof context !== 'undefined' && context.grafana && context.grafana.replaceVariables) return context.grafana.replaceVariables('${control_url}'); return '${control_url}'; };\n    const controlUrl = getUrl();\n    const panelElements = typeof context !== 'undefined' && context.panel && context.panel.elements ? context.panel.elements : (typeof elements !== 'undefined' ? elements : []);\n\n    for (const el of panelElements) {\n      if (el.id === 'led1' || el.id === 'led2') {\n        const currentVal = el.value === true || el.value === 1 || el.value === 'true';\n        const storedVal = localStorage.getItem('sf_' + el.id) === 'true';\n        if (currentVal !== storedVal) {\n          const state = currentVal ? 1 : 0;\n          const payload = { led_id: el.id, state: state, source: 'grafana' };\n          // Enviar a AWS\n          await fetch(controlUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });\n          // Enviar también al receiver local para mantener DB local sincronizada\n          try { await fetch('http://localhost:8080/control', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); } catch(e) {}\n          localStorage.setItem('sf_' + el.id, currentVal ? 'true' : 'false');\n          console.log('Enviado y guardado:', el.id, state);\n        }\n      }\n    }\n    const notOk = typeof context !== 'undefined' && context.grafana ? context.grafana.notifySuccess : notifySuccess;\n    if (notOk) notOk(['Control enviado', 'El hardware ha recibido el comando.']);\n  } catch (error) {\n    console.error('Error en update:', error);\n    const notErr = typeof context !== 'undefined' && context.grafana ? context.grafana.notifyError : notifyError;\n    if (notErr) notErr(['Error', error.toString()]);\n  }\n})()",
+          "confirm": false,
+          "contentType": "application/json",
+          "getPayload": "return {};",
+          "method": "-",
+          "mode": "custom",
+          "payloadMode": "all"
         }
       },
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": ["lastNotNull"]
-        },
-        "orientation": "auto",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "graphMode": "none"
-      }
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT CASE WHEN COALESCE((SELECT state FROM control_commands WHERE led_id = 'led1' ORDER BY command_timestamp DESC LIMIT 1), 0) = 1 THEN true ELSE false END AS led1, CASE WHEN COALESCE((SELECT state FROM control_commands WHERE led_id = 'led2' ORDER BY command_timestamp DESC LIMIT 1), 0) = 1 THEN true ELSE false END AS led2",
+          "refId": "A"
+        }
+      ],
+      "title": "Panel de Control — LEDs de Hardware",
+      "type": "volkovlabs-form-panel"
     }
   ],
   "refresh": "5s",
@@ -346,7 +612,16 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "hide": 0,
+        "label": "URL del endpoint de control",
+        "name": "control_url",
+        "query": "https://wrsbsxcc03.execute-api.us-east-2.amazonaws.com/prod/control",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
   },
   "time": {
     "from": "now-5m",
@@ -364,6 +639,6 @@
   "timezone": "",
   "title": "Panel de Telemetría de Smart-Factory",
   "uid": "smart_factory_telemetry",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
