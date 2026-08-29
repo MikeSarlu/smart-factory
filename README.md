@@ -9,7 +9,7 @@ Este proyecto emula la telemetría de una planta industrial, transmitiendo datos
 
 ---
 
-## 👁️ Solo quiero ver el proyecto en funcionamiento (Demo Pública)
+## Solo quiero ver el proyecto en funcionamiento
 
 Si te han compartido una URL del dashboard de Grafana público y quieres ver la demostración funcionando en tiempo real o interactuar con el simulador, sigue estos pasos:
 
@@ -42,7 +42,7 @@ Verás en tu consola cómo se envían los datos. Cuando aprietes "Enviar Comando
 
 ---
 
-## 💻 Replicar el Proyecto en tu Computadora (Localmente)
+## Replicar el Proyecto en tu Computadora (Localmente)
 
 Si quieres levantar todo el ecosistema en tu propia computadora para desarrollo o pruebas (sin gastar en AWS), la forma más sencilla es usar Docker. Esto levantará la base de datos, un receptor web (simulando API Gateway), el simulador y Grafana auto-configurado.
 
