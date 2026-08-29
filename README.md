@@ -77,7 +77,7 @@ Si quieres levantar todo el ecosistema en tu propia computadora para desarrollo 
 4. **Acceder a Grafana Local:**
    * Abre tu navegador en [http://localhost:3000](http://localhost:3000)
    * **Usuario:** `admin`
-   * **Contraseña:** `admin` (te pedirá cambiarla al entrar por primera vez).
+   * **Contraseña:** `admin`
    * El dashboard llamado "Panel de Telemetría de Smart-Factory" ya estará conectado a la base de datos y mostrando los datos del simulador automáticamente.
 
 ---
@@ -117,8 +117,8 @@ Dado que las funciones Lambda necesitan la librería `psycopg2` para conectarse 
 4. **Variables de Entorno:**
    * En la pestaña **Configuration > Environment variables** de ambas Lambdas, agrega:
      * `DB_HOST`: El Endpoint de tu instancia RDS.
-     * `DB_NAME`: El nombre de tu base de datos (por defecto `postgres` o el que hayas elegido).
-     * `DB_USER`: Tu usuario maestro.
+     * `DB_NAME`: El nombre de tu base de datos (por defecto `postgres`).
+     * `DB_USER`: Tu usuario.
      * `DB_PASSWORD`: Tu contraseña.
      * `DB_PORT`: `5432`
 
@@ -141,7 +141,7 @@ Dado que las funciones Lambda necesitan la librería `psycopg2` para conectarse 
 2. Entra a `http://<IP-EC2>:3000` con `admin/admin`.
 3. Ve a **Connections > Data Sources > Add data source** y elige **PostgreSQL**. Configura la conexión a tu RDS. **Obligatorio:** Selecciona SSL Mode en `require`.
 4. Ve a **Dashboards > Import** y sube el archivo [grafana/dashboard.json](grafana/dashboard.json).
-5. Abre las configuraciones del dashboard (⚙️ Settings -> Variables) y cambia el valor de la variable `control_url` por tu URL de API Gateway completa terminada en `/control` (ej. `https://xxxx.execute-api.us-east-2.amazonaws.com/prod/control`).
+5. Abre las configuraciones del dashboard (Configuración -> Variables) y cambia el valor de la variable `control_url` por tu URL de API Gateway completa terminada en `/control` (ej. `https://xxxx.execute-api.us-east-2.amazonaws.com/prod/control`).
 
 ### Paso 5: Apuntar el Simulador a la Nube
 Finalmente, configura el simulador de tu computadora para que envíe los datos a AWS en lugar del entorno local:
