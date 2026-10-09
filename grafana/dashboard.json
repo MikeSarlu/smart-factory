@@ -32,7 +32,7 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "max": 5,
+          "max": 16,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -43,11 +43,11 @@
               },
               {
                 "color": "orange",
-                "value": 3.5
+                "value": 12.5
               },
               {
                 "color": "red",
-                "value": 4.5
+                "value": 13.5
               }
             ]
           },
